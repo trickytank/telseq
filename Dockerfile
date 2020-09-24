@@ -1,7 +1,7 @@
 
 FROM ubuntu:14.04
 MAINTAINER Zhihao Ding <zhihao.ding@gmail.com>
-LABEL Description="Telseq docker" Version="0.0.1"
+LABEL Description="Telseq docker" Version="0.0.2"
 
 VOLUME /tmp
 
@@ -37,12 +37,13 @@ RUN mkdir -p /deps && \
 
 
 # build telseq
+ENV TELSEQ_VERSION="0.0.2"
 RUN mkdir -p /src && \
     cd /src && \
-    wget https://github.com/zd1/telseq/archive/v0.0.1.tar.gz && \
-    tar -xzvf v0.0.1.tar.gz && \
-    rm v0.0.1.tar.gz && \
-    cd telseq-0.0.1/src && \
+    wget https://github.com/zd1/telseq/archive/v${TELSEQ_VERSION}.tar.gz && \
+    tar -xzvf v${TELSEQ_VERSION}.tar.gz && \
+    rm v${TELSEQ_VERSION}.tar.gz && \
+    cd telseq-${TELSEQ_VERSION}/src && \
     ./autogen.sh && \
     ./configure --with-bamtools=/deps/bamtools-2.4.0 --prefix=/usr/local && \
     make && \
