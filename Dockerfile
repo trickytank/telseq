@@ -60,6 +60,3 @@ RUN mkdir -p /src && \
     make && \
     make install
 
-
-ENTRYPOINT ["/usr/local/bin/telseq"]
-CMD ["--help"]
