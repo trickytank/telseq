@@ -20,7 +20,10 @@ RUN apt-get update && \
         libz-dev \
         python-matplotlib \
         wget \
-        zlib1g-dev
+        zlib1g-dev \
+        libbz2-dev \
+        liblzma-dev \
+        libcurl4-openssl-dev
 
 # build remaining dependencies:
 # bamtools
@@ -35,6 +38,14 @@ RUN mkdir -p /deps && \
     cmake .. && \
     make
 
+# Include SAMtools for piping cram files
+RUN wget https://github.com/samtools/samtools/releases/download/1.11/samtools-1.11.tar.bz2 && \
+    tar jxf samtools-1.11.tar.bz2 && \
+    rm samtools-1.11.tar.bz2 && \
+    cd samtools-1.11 && \
+    ./configure --without-curses && \
+    make && \
+    make install
 
 # build telseq
 ENV TELSEQ_VERSION="0.0.2"
